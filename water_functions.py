@@ -75,6 +75,8 @@ def refill():
 def revert_data():
 	backup_data = load_data_backup()
 	save_data(backup_data)
+	display_success('revert')
+	display_graph()
 
 def update(include_refill=''):
 	previous_data_file = load_data()
@@ -82,8 +84,9 @@ def update(include_refill=''):
 	backup_data_file(previous_data_file)
 	current_data_file = get_current_update_data(previous_data_file,
 		include_refill=include_refill)
-	display_success()
-	save_data(current_data_file)
+	save_data(current_data_file)		
+	display_success('update')
+	display_graph()
 
 # Core command helpers:
 def backup_data_file(data_file):
@@ -157,8 +160,11 @@ def display_settings():
 			i += 1
 	print('')
 	
-def display_success():
-	print("Data successfully updated!")
+def display_success(success_type):
+	if success_type == 'update':
+		print("Data successfully updated!")
+	elif success_type == 'revert':
+		print("Data sucessfully reverted!")
 
 def enable_alert():
 	config = load_config()
